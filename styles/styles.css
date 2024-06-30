@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding:0 ;
+}
+
+.welcome{
+    color: white;
+    stroke: black;
+    stroke-width: 2px;
+}
+
+.main-div{
+    background-image: url("../assets/Images/bg1.png");
+
+    height: 100vh;
+
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat ;
+    background-size: cover;
+}
+
+.main-div p{
+    font-size: large;
+}
+
+.second-div{
+    background-image: url("../assets/Images/bg2.jpg");
+
+    height: 100vh;
+
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat ;
+    background-size: cover;
+}
+
+.third-div{
+    background-image: url("../assets/Images/bg3.jpg");
+
+    height: 100vh;
+
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat ;
+    background-size: cover;
+}
