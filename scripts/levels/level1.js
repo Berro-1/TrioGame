@@ -11,7 +11,7 @@ class Level1 extends Phaser.Scene {
   preload() {
       this.load.image("tileset", "../../assets/Levels/tileset.png");
       this.load.image("character", "../../assets/Images/kalkaboot.png");
-      this.load.image("background", "../../assets/Images/background.png"); // Load the background image
+      this.load.image("background", "../../assets/Images/chapter1-bg.jpg"); // Load the background image
       this.load.tilemapCSV("map1", "./assets/Levels/map1.csv");
   }
 
@@ -71,7 +71,7 @@ class Level1 extends Phaser.Scene {
 
       // Create text objects to display the data for both players
       this.scoreText1 = this.add.text(10, 10, '', { font: '24px Courier', fill: '#00ff00' });
-      this.scoreText2 = this.add.text(this.scale.width - 200, 10, '', { font: '24px Courier', fill: '#ff0000' });
+      this.scoreText2 = this.add.text(this.scale.width - 130, 10, '', { font: '24px Courier', fill: '#f3ce45' });
       this.updateScoreText();
 
       // Create a black rectangle for fade effect
