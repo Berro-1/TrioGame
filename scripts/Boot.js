@@ -6,7 +6,7 @@ Game.Boot = class Boot extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('preloaderBar', 'assets/Images/spinner.png');
+        this.load.image('preloaderBar', 'assets/preloader.png');
     }
 
     create() {

@@ -10,13 +10,11 @@ Game.Preloader = class Preloader extends Phaser.Scene {
             this.preloadBar.setScale(value, 1);
         });
 
-
-        this.load.image('tileset', 'assets/tileset.png');
-
+        this.load.tilemapCSV('map1',"../assets/Levels/maps1.csv");
+        this.load.image('tileset','../assets/tileset.png')
     }
 
     create() {
-
-        this.scene.start('Level');
+        this.scene.start('Level1');
     }
 };

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phaser Game</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="scripts/phaser.js"></script>
+    <script src="scripts/Boot.js"></script>
+    <script src="scripts/Preloader.js"></script>
+    <script src="scripts/MainMenu.js"></script>
+    <script src="scripts/levels/Level1.js"></script>
+</head>
+<body>
+    <div id="game-container"></div>
+    <script>
+        window.onload = function() {
+            startGame();
+        };
+
+        var Game = Game || {};
+
+        function startGame() {
+            var config = {
+                type: Phaser.AUTO,
+                width: 1920,
+                height: 960,
+                parent: 'game-container',
+                physics: {
+                    default: 'arcade',
+                    arcade: {
+                        gravity: { y: 300 },
+                        debug: false
+                    }
+                },
+                scene: [Game.Boot, Game.Preloader, Game.MainMenu, Game.Level1]
+            };
+
+            var game = new Phaser.Game(config);
+        }
+    </script>
+</body>
+</html>
