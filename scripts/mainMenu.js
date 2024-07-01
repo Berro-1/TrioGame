@@ -1,4 +1,4 @@
-Game.MainMenu = class MainMenu extends Phaser.Scene {
+class MainMenu extends Phaser.Scene {
     constructor() {
         super('MainMenu');
     }
@@ -6,3 +6,4 @@ Game.MainMenu = class MainMenu extends Phaser.Scene {
     create() {
     }
 };
+export default MainMenu;

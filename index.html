@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Phaser Game</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="./scripts/phaser.js"></script>
 </head>
-<body>
+<body style="background-color: alicebluez;">
+    <div id="game-container" style="background-color:aliceblue"></div>
     <div class="first division">
         <h1 class="welcome">Welcome</h1>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis est modi autem illum, fuga amet ut ipsa vero porro ad soluta, quae odio adipisci similique placeat. Ratione iusto reiciendis cupiditate.</p>
@@ -32,10 +34,12 @@
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis est modi autem illum, fuga amet ut ipsa vero porro ad soluta, quae odio adipisci similique placeat. Ratione iusto reiciendis cupiditate.</p>
     </div>
 
+    <script type="module">
+        import {startGame} from './game.js'; // Assuming startGame is an exported function that starts the game
 
-    <script>
         document.getElementById('start').addEventListener('click', function() {
-            window.location.href = 'game.html'; // Redirect to the game page
+            document.getElementById('game-container').style.display = 'block'; // Show the game container
+            startGame();
         });
     </script>
 </body>

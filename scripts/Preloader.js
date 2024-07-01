@@ -1,20 +1,16 @@
-Game.Preloader = class Preloader extends Phaser.Scene {
+class Preloader extends Phaser.Scene {
     constructor() {
         super('Preloader');
     }
 
     preload() {
-        this.preloadBar = this.add.sprite(this.cameras.main.centerX, this.cameras.main.centerY, 'preloaderBar');
-        this.preloadBar.setOrigin(0.5, 0.5);
-        this.load.on('progress', (value) => {
-            this.preloadBar.setScale(value, 1);
-        });
-
-        this.load.tilemapCSV('map1',"../assets/Levels/maps1.csv");
-        this.load.image('tileset','../assets/tileset.png')
+        this.load.tilemapCSV('map2', '../assets/Levels/map2.csv');
+        this.load.image('tileset', '../assets/Levels/tileset.png');
     }
 
     create() {
         this.scene.start('Level1');
     }
-};
+}
+
+export default Preloader;
