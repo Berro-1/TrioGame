@@ -57,8 +57,38 @@ class Level1 extends Phaser.Scene {
     console.log("Characters and coins reset due to hazard.");
   }
 
+  handleTileCollision(character, tile) {
+    if (tile.index === 6 || tile.index === 136) {
+      this.getCoin(character, tile);
+    } else if (tile.index === 5 || tile.index ===27) {
+      this.resetPlayerAndCoins(this.character);
+    }
+  }
+  resetPlayerAndCoins(character) {
+    character.setPosition(100, 500); // Reset character to start position
+    this.coins = 0; // Reset coin count
+    console.log("Player and coins have been reset.");
 
- 
+    this.initialCoinPositions.forEach(coin => {
+      this.map.putTileAt(coin.index, coin.x, coin.y);
+    });}
+
+  getCoin(character, tile) {
+    let points = 0;
+    if (tile.index === 6) {
+      points = 1; // Coin of id=6 equals 1 point
+    } else if (tile.index === 136) {
+      points = 3; // Coin of id=136 equals 3 points
+    }
+
+    if (this.coins < 5) {
+      this.coins += points;
+      console.log(`Coin collected, tile removed. Total points: ${this.coins}`);
+      this.layer.removeTileAt(tile.x, tile.y);
+    } else {
+      // this.nextlvl(); // Proceed to next level if required
+    }
+  }
 
   update() {
     this.updateCharacter(this.character, this.cursors);
