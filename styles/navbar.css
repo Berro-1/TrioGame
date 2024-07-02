@@ -27,7 +27,7 @@
     text-decoration: none;
     color: white;
     -webkit-text-stroke: 1px black;
-    font-size: xx-large;
+    font-size: 40px;
     font-weight: 900;
 }
 
@@ -35,3 +35,4 @@
     border: 2px solid black;
     border-radius: 50px;
 }
+
