@@ -8,6 +8,7 @@ class Level2 extends Phaser.Scene {
         this.load.image("tileset", "../../assets/Levels/tileset.png");
         this.load.image("character", "../../assets/Images/kalkaboot.png");
         this.load.image("background", "../../assets/Images/chapter1-bg.jpg");
+        this.load.image("bird", "../../assets/Images/bird.png");
         this.load.tilemapCSV("map2", "./assets/Levels/map2.csv");
     }
 
@@ -66,6 +67,39 @@ class Level2 extends Phaser.Scene {
                 this.fadeRect.setAlpha(0);
             }
         });
+
+        // Create the first bird that moves from right to left
+        this.enemyBird1 = this.physics.add.sprite(this.scale.width, this.scale.height - 650, 'bird');
+        this.enemyBird1.setOrigin(0.5, 0.5);
+        this.enemyBird1.body.allowGravity = false;
+        this.enemyBird1.body.immovable = true;
+        this.enemyBird1.body.collideWorldBounds = true;
+        this.enemyBird1.body.onWorldBounds = true;
+        this.physics.world.on('worldbounds', (body) => {
+            if (body.gameObject === this.enemyBird1) {
+                this.enemyBird1.x = this.scale.width;
+            }
+        });
+
+        // Create the second bird that moves from left to right and is flipped
+        this.enemyBird2 = this.physics.add.sprite(0, this.scale.height - 600, 'bird');
+        this.enemyBird2.setOrigin(0.5, 0.5);
+        this.enemyBird2.setFlipX(true);
+        this.enemyBird2.body.allowGravity = false;
+        this.enemyBird2.body.immovable = true;
+        this.enemyBird2.body.collideWorldBounds = true;
+        this.enemyBird2.body.onWorldBounds = true;
+        this.physics.world.on('worldbounds', (body) => {
+            if (body.gameObject === this.enemyBird2) {
+                this.enemyBird2.x = 0;
+            }
+        });
+
+        // Add collision detection between players and birds
+        this.physics.add.collider(this.player1, this.enemyBird1, this.resetPlayerAndCoins, null, this);
+        this.physics.add.collider(this.player2, this.enemyBird1, this.resetPlayerAndCoins, null, this);
+        this.physics.add.collider(this.player1, this.enemyBird2, this.resetPlayerAndCoins, null, this);
+        this.physics.add.collider(this.player2, this.enemyBird2, this.resetPlayerAndCoins, null, this);
     }
 
     createPlayer(x, y) {
@@ -80,9 +114,15 @@ class Level2 extends Phaser.Scene {
         return player;
     }
 
+    updateEnemyBirds() {
+        this.enemyBird1.x -= 5;
+        this.enemyBird2.x += 5;
+    }
+
     update() {
         this.updateCharacter(this.player1, this.wasd, 1);
         this.updateCharacter(this.player2, this.cursors, 2);
+        this.updateEnemyBirds();
 
         if (this.getRemainingCoinsCount() <= 0) {
             this.advanceToNextLevel();
@@ -218,7 +258,7 @@ class Level2 extends Phaser.Scene {
             alpha: 1,
             duration: 1000,
             onComplete: () => {
-                this.scene.start('Level2');
+                this.scene.start('Level3');
             }
         });
     }
