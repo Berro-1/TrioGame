@@ -21,10 +21,7 @@ export function startGame() {
         gravity: { y: 250 },
         debug: true,
       },
-      fps: {
-        target: 20,
-        forceSetTimeOut: false 
-    }
+   
     },
     scene: [Boot, Preloader, MainMenu, Level1, Level2, Level3],
   };

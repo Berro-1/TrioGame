@@ -4,12 +4,12 @@ class Preloader extends Phaser.Scene {
     }
 
     preload() {
-        this.load.tilemapCSV('map2', '../assets/Levels/map2.csv');
+        this.load.tilemapCSV('map1', '../assets/Levels/map1.csv');
         this.load.image('tileset', '../assets/Levels/tileset.png');
     }
 
     create() {
-        this.scene.start('Level2');
+        this.scene.start('Level1');
     }
 }
 

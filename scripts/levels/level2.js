@@ -252,15 +252,21 @@ class Level2 extends Phaser.Scene {
 
     advanceToNextLevel() {
         this.saveToLocalStorage();
-
-        this.tweens.add({
-            targets: this.fadeRect,
-            alpha: 1,
-            duration: 1000,
-            onComplete: () => {
-                this.scene.start('Level3');
-            }
-        });
+     // Use HTML elements for transition
+     const fadeScreen = document.getElementById('fade-screen');
+     const fadeText = document.getElementById('fade-text');
+     fadeText.innerHTML = 'Loading Level 3...';
+     fadeScreen.style.display = 'flex';
+     setTimeout(() => {
+         fadeScreen.style.opacity = 1;
+         setTimeout(() => {
+             this.scene.start('Level3');
+             fadeScreen.style.opacity = 0;
+             setTimeout(() => {
+                 fadeScreen.style.display = 'none';
+             }, 1000);
+         }, 1000);
+     }, 10);
     }
 }
 
