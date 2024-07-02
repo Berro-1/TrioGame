@@ -4,18 +4,17 @@ class Level1 extends Phaser.Scene {
         this.player1Coins = 0;
         this.player2Coins = 0;
     }
-    
-  
+
     preload() {
         this.load.image("tileset", "../../assets/Levels/tileset.png");
         this.load.image("character", "../../assets/Images/kalkaboot.png");
-        this.load.image("background", "../../assets/Images/chapter1-bg.jpg"); 
+        this.load.image("background", "../../assets/Images/chapter1-bg.jpg");
         this.load.tilemapCSV("map1", "./assets/Levels/map1.csv");
     }
-  
+
     create() {
         this.add.image(0, 0, 'background').setOrigin(0, 0).setDisplaySize(this.scale.width, this.scale.height);
-  
+
         this.map = this.make.tilemap({
             key: "map1",
             tileWidth: 64,
@@ -24,44 +23,42 @@ class Level1 extends Phaser.Scene {
         this.tiles = this.map.addTilesetImage("tileset");
         this.layer = this.map.createLayer(0, this.tiles, 0, 0);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-  
+
         this.player1 = this.createPlayer(100, 500);
-  
         this.player2 = this.createPlayer(this.map.widthInPixels - 100, 500);
-  
+
         this.layer.setCollisionByExclusion([-1]);
         this.physics.add.collider(this.player1, this.layer, this.handleTileCollision, null, this);
         this.physics.add.collider(this.player2, this.layer, this.handleTileCollision, null, this);
-  
+
         this.cursors = this.input.keyboard.createCursorKeys();
         this.wasd = {
             left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
             right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
             up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
         };
-  
+
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.cameras.main.startFollow(this.player1, true, 0.5, 0.5, 0, 0);
-  
-      
+
         this.layer.setTileIndexCallback([6, 136], this.collectCoin, this);
         this.physics.add.overlap(this.player1, this.layer);
         this.physics.add.overlap(this.player2, this.layer);
-  
+
         this.data.set('lives1', 3);
         this.data.set('level1', 1);
         this.data.set('lives2', 3);
         this.data.set('level2', 1);
-  
+
         this.scoreText1 = this.add.text(10, 10, '', { font: '24px Courier', fill: '#00ff00' });
         this.scoreText2 = this.add.text(this.scale.width - 130, 10, '', { font: '24px Courier', fill: '#f3ce45' });
         this.updateScoreText();
-  
+
         this.fadeRect = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000)
             .setOrigin(0, 0)
-            .setAlpha(0); 
+            .setAlpha(0);
     }
-  
+
     createPlayer(x, y) {
         let player = this.physics.add.sprite(x, y, "character")
             .setOrigin(0.5, 0)
@@ -73,16 +70,16 @@ class Level1 extends Phaser.Scene {
         player.body.setSize(90, 120);
         return player;
     }
-  
+
     update() {
         this.updateCharacter(this.player1, this.wasd, 1);
         this.updateCharacter(this.player2, this.cursors, 2);
-  
+
         if (this.getRemainingCoinsCount() <= 0) {
             this.advanceToNextLevel();
         }
     }
-  
+
     updateCharacter(character, controls, playerNum) {
         if (controls.left.isDown) {
             character.setDrag(0);
@@ -107,18 +104,18 @@ class Level1 extends Phaser.Scene {
             });
         }
     }
-  
+
     handleTileCollision(character, tile) {
         if (tile && (tile.index === 5 || tile.index === 27)) {
             this.resetPlayerAndCoins(character);
         }
     }
-  
+
     resetPlayerAndCoins(character) {
         const playerNum = character === this.player1 ? 1 : 2;
         const livesKey = `lives${playerNum}`;
         const startPosition = playerNum === 1 ? 100 : this.map.widthInPixels - 100;
-    
+
         if (this.data.get(livesKey) > 1) {
             this.data.set(livesKey, this.data.get(livesKey) - 1);
             character.setPosition(startPosition, 500);
@@ -126,11 +123,11 @@ class Level1 extends Phaser.Scene {
             character.disableBody(true, true);
             this.data.set(livesKey, 0); 
         }
-    
+
         console.log(`Player ${playerNum} and coins have been reset.`);
-    
+
         this.updateScoreText();
-    
+
         if (this.data.get('lives1') === 0 && this.data.get('lives2') === 0) {
             this.advanceToNextLevel();
         }
@@ -147,8 +144,7 @@ class Level1 extends Phaser.Scene {
         this.layer.removeTileAt(tile.x, tile.y);
         this.updateScoreText(); 
     }
-    
-  
+
     collectCoin(character, tile) {
         if (tile && (tile.index === 6 || tile.index === 136)) {
             this.getCoin(character, tile);
@@ -169,7 +165,7 @@ class Level1 extends Phaser.Scene {
             'Coins: ' + this.player2Coins,
         ]);
     }
-    
+
     getRemainingCoinsCount() {
         let count = 0;
         this.layer.forEachTile(tile => {
@@ -179,7 +175,7 @@ class Level1 extends Phaser.Scene {
         });
         return count;
     }
-  
+
     saveToLocalStorage() {
         const gameData = {
             player1Coins: this.player1Coins,
@@ -187,21 +183,26 @@ class Level1 extends Phaser.Scene {
         };
         localStorage.setItem('gameData', JSON.stringify(gameData));
     }
-    
 
     advanceToNextLevel() {
-        this.saveToLocalStorage(); 
+        this.saveToLocalStorage();
 
-        this.tweens.add({
-            targets: this.fadeRect,
-            alpha: 1,
-            duration: 1000,
-            onComplete: () => {
+        // Use HTML elements for transition
+        const fadeScreen = document.getElementById('fade-screen');
+        const fadeText = document.getElementById('fade-text');
+        fadeText.innerHTML = 'Loading Level 2...';
+        fadeScreen.style.display = 'flex';
+        setTimeout(() => {
+            fadeScreen.style.opacity = 1;
+            setTimeout(() => {
                 this.scene.start('Level2');
-            }
-        });
+                fadeScreen.style.opacity = 0;
+                setTimeout(() => {
+                    fadeScreen.style.display = 'none';
+                }, 1000);
+            }, 1000);
+        }, 10);
     }
-  }
-  
-  export default Level1;
-  
+}
+
+export default Level1;
