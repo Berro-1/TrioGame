@@ -1,3 +1,19 @@
+#fade-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease-in-out;
+    z-index: 1000; /* Make sure this is above all other content */
+}
+
+#fade-text {
+    color: white;
+    font-size: 48px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the items horizontally since the text might have different lengths */
+}
 *{
     margin: 0;
     padding:0 ;

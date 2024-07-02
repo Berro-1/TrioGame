@@ -1,46 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Phaser Game</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/styles.css" />
     <script src="./scripts/phaser.js"></script>
-</head>
-<body style="background-color: alicebluez;">
-    <div id="game-container" style="background-color:aliceblue"></div>
+  </head>
+  <body style="background-color: aliceblue">
+    <div
+      id="game-container"
+      style="background-color: aliceblue; display: none"
+    ></div>
+    <div
+      id="fade-screen"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        display: none;
+        z-index: 1000;
+      "
+    >
+      <p
+        id="fade-text"
+        style="
+          color: white;
+          font-size: 48px;
+          text-align: center;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        "
+      >      </p>
+    </div>
     <div class="first division">
-        <h1 class="welcome">Welcome</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis est modi autem illum, fuga amet ut ipsa vero porro ad soluta, quae odio adipisci similique placeat. Ratione iusto reiciendis cupiditate.</p>
-        
-        <div class="start-div">
-            <div id="start" class="start">
-                <h1>Start</h1>
-            </div>
+      <h1 class="welcome">Welcome</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis est modi
+        autem illum, fuga amet ut ipsa vero porro ad soluta, quae odio adipisci
+        similique placeat. Ratione iusto reiciendis cupiditate.
+      </p>
+
+      <div class="start-div">
+        <div id="start" class="start">
+          <h1>Start</h1>
         </div>
+      </div>
     </div>
     <div class="divider">
-        <img src="assets/Images/dividerLeft.png" alt="">
+      <img src="assets/Images/dividerLeft.png" alt="" />
     </div>
     <div class="second division positioning">
-        <h1 class="welcome">Welcome</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis est modi autem illum, fuga amet ut ipsa vero porro ad soluta, quae odio adipisci similique placeat. Ratione iusto reiciendis cupiditate.</p>
+      <h1 class="welcome">Welcome</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis est modi
+        autem illum, fuga amet ut ipsa vero porro ad soluta, quae odio adipisci
+        similique placeat. Ratione iusto reiciendis cupiditate.
+      </p>
     </div>
     <div class="divider">
-        <img src="assets/Images/dividerRight.png" alt="">
+      <img src="assets/Images/dividerRight.png" alt="" />
     </div>
     <div class="third division positioning">
-        <h1 class="welcome">Welcome</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis est modi autem illum, fuga amet ut ipsa vero porro ad soluta, quae odio adipisci similique placeat. Ratione iusto reiciendis cupiditate.</p>
+      <h1 class="welcome">Welcome</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis est modi
+        autem illum, fuga amet ut ipsa vero porro ad soluta, quae odio adipisci
+        similique placeat. Ratione iusto reiciendis cupiditate.
+      </p>
     </div>
 
     <script type="module">
-        import {startGame} from './game.js'; // Assuming startGame is an exported function that starts the game
-
-        document.getElementById('start').addEventListener('click', function() {
-            document.getElementById('game-container').style.display = 'block'; // Show the game container
+      import { startGame } from "./game.js";
+      document.getElementById('start').addEventListener('click', function() {
+        const fadeScreen = document.getElementById('fade-screen');
+        const fadeText = document.getElementById('fade-text');
+        fadeText.innerHTML = '<span>Level 1</span><h2>Chapter 1</h2>';
+        fadeScreen.style.display = 'flex';
+        fadeScreen.style.opacity = 1;
+    
+        setTimeout(() => {
+            document.getElementById('game-container').style.display = 'block';
             startGame();
-        });
+            fadeScreen.style.opacity = 0;
+            setTimeout(() => {
+                fadeScreen.style.display = 'none'; 
+            }, 1000); 
+        }, 1000); 
+    });
     </script>
-</body>
+  </body>
 </html>

@@ -44,18 +44,14 @@ class Level1 extends Phaser.Scene {
         this.cameras.main.startFollow(this.player1, true, 0.5, 0.5, 0, 0);
   
       
-  
         this.layer.setTileIndexCallback([6, 136], this.collectCoin, this);
-        this.layer.setTileIndexCallback(47, this.handleOverlapWithTile47, this);
         this.physics.add.overlap(this.player1, this.layer);
         this.physics.add.overlap(this.player2, this.layer);
   
         this.data.set('lives1', 3);
         this.data.set('level1', 1);
-        this.data.set('score1', 0);
         this.data.set('lives2', 3);
         this.data.set('level2', 1);
-        this.data.set('score2', 0);
   
         this.scoreText1 = this.add.text(10, 10, '', { font: '24px Courier', fill: '#00ff00' });
         this.scoreText2 = this.add.text(this.scale.width - 130, 10, '', { font: '24px Courier', fill: '#f3ce45' });
@@ -64,8 +60,6 @@ class Level1 extends Phaser.Scene {
         this.fadeRect = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000)
             .setOrigin(0, 0)
             .setAlpha(0); 
-
-            this.loadFromLocalStorage(); 
     }
   
     createPlayer(x, y) {
@@ -141,6 +135,7 @@ class Level1 extends Phaser.Scene {
             this.advanceToNextLevel();
         }
     }
+
     getCoin(character, tile) {
         let points = (tile.index === 6 ? 1 : 3);
         if (character === this.player1) {
@@ -153,13 +148,13 @@ class Level1 extends Phaser.Scene {
         this.updateScoreText(); 
     }
     
-    
   
     collectCoin(character, tile) {
         if (tile && (tile.index === 6 || tile.index === 136)) {
             this.getCoin(character, tile);
         }
     }
+
     updateScoreText() {
         this.scoreText1.setText([
             'Player 1',
@@ -175,7 +170,6 @@ class Level1 extends Phaser.Scene {
         ]);
     }
     
-  
     getRemainingCoinsCount() {
         let count = 0;
         this.layer.forEachTile(tile => {
@@ -196,7 +190,6 @@ class Level1 extends Phaser.Scene {
     
 
     advanceToNextLevel() {
-        console.log("Advancing to the next level...");
         this.saveToLocalStorage(); 
 
         this.tweens.add({
