@@ -25,7 +25,41 @@ class Level3 extends Phaser.Scene {
         this.layer = this.map.createLayer(0, this.tiles, 0, 0);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
+        
+        this.player1 = this.createPlayer(40, 200);
+        this.player2 = this.createPlayer(this.map.widthInPixels - 40, 100);
+
+        
+
+        this.physics.add.collider(this.player1, this.layer, this.handleTileCollision, null, this);
+        this.physics.add.collider(this.player2, this.layer, this.handleTileCollision, null, this);
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.wasd = {
+            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
+            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+            up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
+        };
+
+        
+        this.data.set('lives1', 3);
+        this.data.set('level1', 1);
+        this.data.set('lives2', 3);
+        this.data.set('level2', 1);
     }
+
+    createPlayer(x, y) {
+        let player = this.physics.add.sprite(x, y, "character")
+            .setOrigin(0.5, 0)
+            .setCollideWorldBounds(true)
+            .setBounce(0.2)
+            .setDrag(100)
+            .setGravityY(600)
+            .setScale(0.5);
+        player.body.setSize(90, 120);
+        return player;
+    }
+
 
     loadData() {
         const savedData = localStorage.getItem('gameData');
