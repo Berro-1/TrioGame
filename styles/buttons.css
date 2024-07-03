@@ -5,6 +5,22 @@
     flex: 1 1 auto;
 }
 
+.lava{
+    margin: 0 20px 0 20px ;
+    text-align: start;
+    font-size: 60px;
+    color: rgb(255, 145, 0);
+    -webkit-text-stroke: 2px black;
+}
+
+.ice{
+    margin: 0 20px 0 20px ;
+    text-align: start;
+    font-size: 60px;
+    color: rgb(0, 247, 255);
+    -webkit-text-stroke: 2px black;
+}
+
 .start{
     width: 500px;
     height: 100px;
@@ -29,11 +45,6 @@
     color: rgb(124, 46, 0);
 }
 
-.space h1{
-    font-size: 80px;
-    color: rgb(0, 89, 255);
-    
-}
 
 .forest{
     background-color: rgb(141, 92, 0);
@@ -43,11 +54,6 @@
 .volcano{
     background-color: rgb(54, 35, 107);
     border: 5px solid rgb(241, 129, 0);
-}
-
-.space{
-    background-color: rgb(162, 0, 255);
-    border: 5px solid rgb(0, 89, 255);
 }
 
 .forest:hover{
@@ -69,15 +75,3 @@
     color: rgb(241, 129, 0);
 }
 
-.space:hover h1{
-    color: rgb(71, 0, 153);
-}
-
-.space:hover{
-
-    background-color: rgb(0, 89, 255);
-    border-color: rgb(162, 0, 255);
-    -webkit-box-shadow:0 0 20px rgb(162, 0, 255); 
-    -moz-box-shadow: 0 0 20px rgb(162, 0, 255); 
-    box-shadow:0 0 20px rgb(162, 0, 255);
-}
