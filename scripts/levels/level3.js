@@ -29,7 +29,7 @@ class Level3 extends Phaser.Scene {
         this.player1 = this.createPlayer(40, 200);
         this.player2 = this.createPlayer(this.map.widthInPixels - 40, 100);
 
-        
+        this.layer.setCollisionByExclusion([-1, 109]);    
 
         this.physics.add.collider(this.player1, this.layer, this.handleTileCollision, null, this);
         this.physics.add.collider(this.player2, this.layer, this.handleTileCollision, null, this);
