@@ -172,6 +172,60 @@ class Level3 extends Phaser.Scene {
             'Coins: ' + this.player2Coins,
         ]);
     }
+
+    handleTileCollision(character, tile) {
+        if (tile && (tile.index === 5 || tile.index === 27 || tile.index === 48)) {
+            this.resetPlayerAndCoins(character);
+        }
+    }
+
+    resetPlayerAndCoins(character) {
+        const playerNum = character === this.player1 ? 1 : 2;
+        const livesKey = `lives${playerNum}`;
+        const startPosition = playerNum === 1 ? 100 : this.map.widthInPixels - 100;
+
+        if (this.data.get(livesKey) > 1) {
+            this.data.set(livesKey, this.data.get(livesKey) - 1);
+            character.setPosition(startPosition, 100);
+        } else {
+            character.disableBody(true, true);
+            this.data.set(livesKey, 0);
+        }
+
+        console.log(`Player ${playerNum} and coins have been reset.`);
+
+        this.updateScoreText();
+
+        if (this.data.get('lives1') === 0 && this.data.get('lives2') === 0) {
+            this.advanceToNextLevel();
+        }
+    }
+
+    getCoin(character, tile) {
+        let points = (tile.index === 6 ? 1 : 3);
+        if (character === this.player1) {
+            this.player1Coins += points;
+        } else {
+            this.player2Coins += points;
+        }
+        console.log(`Coin collected by ${character === this.player1 ? 'Player 1' : 'Player 2'}, tile removed. Total coins: ${character === this.player1 ? this.player1Coins : this.player2Coins}`);
+        this.layer.removeTileAt(tile.x, tile.y);
+        this.updateScoreText();
+    }
+
+    collectCoin(character, tile) {
+        if (tile && (tile.index === 6 || tile.index === 136)) {
+            this.getCoin(character, tile);
+        }
+    }
+
+    saveToLocalStorage() {
+        const gameData = {
+            player1Coins: this.player1Coins,
+            player2Coins: this.player2Coins,
+        };
+        localStorage.setItem('gameData', JSON.stringify(gameData));
+    }
 }
 
 export default Level3;
