@@ -46,6 +46,33 @@ class Level3 extends Phaser.Scene {
         this.data.set('level1', 1);
         this.data.set('lives2', 3);
         this.data.set('level2', 1);
+
+        
+        this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+        this.cameras.main.startFollow(this.player1, true, 0.5, 0.5, 0, 0);
+
+        this.layer.setTileIndexCallback([6, 136], this.collectCoin, this);
+        this.physics.add.overlap(this.player1, this.layer);
+        this.physics.add.overlap(this.player2, this.layer);
+
+        
+        this.scoreText1 = this.add.text(10, 10, '', { font: '24px Courier', fill: '#00ff00' });
+        this.scoreText2 = this.add.text(this.scale.width - 130, 10, '', { font: '24px Courier', fill: '#f3ce45' });
+        this.updateScoreText();
+
+        this.fadeRect = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000)
+            .setOrigin(0, 0)
+            .setAlpha(1);
+
+        this.tweens.add({
+            targets: this.fadeRect,
+            alpha: { from: 1, to: 0 },
+            duration: 1000,
+            onComplete: () => {
+                this.fadeRect.setAlpha(0);
+            }
+        });
+
     }
 
     createPlayer(x, y) {
@@ -72,6 +99,21 @@ class Level3 extends Phaser.Scene {
             this.player2Coins = 0;
             console.log('No saved data found, starting with default values.');
         }
+    }
+
+    updateScoreText() {
+        this.scoreText1.setText([
+            'Player 1',
+            'Level: ' + this.data.get('level1'),
+            'Lives: ' + this.data.get('lives1'),
+            'Coins: ' + this.player1Coins,
+        ]);
+        this.scoreText2.setText([
+            'Player 2',
+            'Level: ' + this.data.get('level2'),
+            'Lives: ' + this.data.get('lives2'),
+            'Coins: ' + this.player2Coins,
+        ]);
     }
 }
 
