@@ -13,6 +13,17 @@ class Level3 extends Phaser.Scene {
     }
 
     create(){
+        
+        this.add.image(0, 0, 'background2').setOrigin(0, 0).setDisplaySize(this.scale.width, this.scale.height);
+
+        this.map = this.make.tilemap({
+            key: "map3",
+            tileWidth: 64,
+            tileHeight: 64,
+        });
+        this.tiles = this.map.addTilesetImage("tileset");
+        this.layer = this.map.createLayer(0, this.tiles, 0, 0);
+        this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
     }
 
