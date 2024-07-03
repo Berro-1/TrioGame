@@ -75,6 +75,40 @@ class Level3 extends Phaser.Scene {
 
     }
 
+    update() {
+        this.updateCharacter(this.player1, this.wasd, 1);
+        this.updateCharacter(this.player2, this.cursors, 2);
+
+        if (this.getRemainingCoinsCount() <= 0) {
+            this.advanceToNextLevel();
+        }
+    }
+
+
+
+    advanceToNextLevel() {
+        this.saveToLocalStorage();
+
+        this.tweens.add({
+            targets: this.fadeRect,
+            alpha: 1,
+            duration: 1000,
+            onComplete: () => {
+                this.scene.start('Level4');
+            }
+        });
+    }
+
+    getRemainingCoinsCount() {
+        let count = 0;
+        this.layer.forEachTile(tile => {
+            if (tile.index === 6 || tile.index === 136) {
+                count++;
+            }
+        });
+        return count;
+    }
+
     createPlayer(x, y) {
         let player = this.physics.add.sprite(x, y, "character")
             .setOrigin(0.5, 0)
