@@ -255,7 +255,7 @@ class Level5 extends Phaser.Scene {
      setTimeout(() => {
          fadeScreen.style.opacity = 1;
          setTimeout(() => {
-             this.scene.start('Level3');
+             this.scene.start('EndingScene');
              fadeScreen.style.opacity = 0;
              setTimeout(() => {
                  fadeScreen.style.display = 'none';

@@ -7,7 +7,21 @@ class Level1 extends Phaser.Scene {
 
     preload() {
         this.load.image("tileset", "../../assets/Levels/tileset.png");
-        this.load.image("character", "../../assets/Images/kalkaboot.png");
+        let savedCharacter1 = localStorage.getItem('character1');
+        let savedCharacter2 = localStorage.getItem('character2');
+        
+        if (savedCharacter1) {
+            this.load.image('player1', savedCharacter1);
+        } else {
+            this.load.image('player1', 'assets/Images/kalkaboot.png'); 
+        }
+        
+        if (savedCharacter2) {
+            this.load.image('player2', savedCharacter2);
+        } else {
+            this.load.image('player2', 'assets/Images/kalkaboot.png'); 
+        }
+
         this.load.image("background", "../../assets/Images/chapter1-bg.jpg");
         this.load.tilemapCSV("map1", "./assets/Levels/map1.csv");
     }
@@ -24,8 +38,8 @@ class Level1 extends Phaser.Scene {
         this.layer = this.map.createLayer(0, this.tiles, 0, 0);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        this.player1 = this.createPlayer(100, 500);
-        this.player2 = this.createPlayer(this.map.widthInPixels - 100, 500);
+        this.player1 = this.createPlayer(100, 500, 'player1');
+        this.player2 = this.createPlayer(this.map.widthInPixels - 100, 500, 'player2');
 
         this.layer.setCollisionByExclusion([-1]);
         this.physics.add.collider(this.player1, this.layer, this.handleTileCollision, null, this);
@@ -59,14 +73,14 @@ class Level1 extends Phaser.Scene {
             .setAlpha(0);
     }
 
-    createPlayer(x, y) {
-        let player = this.physics.add.sprite(x, y, "character")
+    createPlayer(x, y, spriteKey) {
+        let player = this.physics.add.sprite(x, y, spriteKey)
             .setOrigin(0.5, 0)
             .setCollideWorldBounds(true)
             .setBounce(0.2)
             .setDrag(100)
             .setGravityY(600)
-            .setScale(0.5);
+            .setScale(0.4);
         player.body.setSize(90, 120);
         return player;
     }

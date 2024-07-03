@@ -8,36 +8,7 @@
     <script src="./scripts/phaser.js"></script>
   </head>
   <body style="background-color: aliceblue">
-    <div
-      id="game-container"
-      style="background-color: aliceblue; display: none"
-    ></div>
-    <div
-      id="fade-screen"
-      style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        display: none;
-        z-index: 1000;
-      "
-    >
-      <p
-        id="fade-text"
-        style="
-          color: white;
-          font-size: 48px;
-          text-align: center;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        "
-      >      </p>
-    </div>
+  
     <div class="first division">
       <h1 class="welcome">Welcome</h1>
       <p>
@@ -47,9 +18,9 @@
       </p>
 
       <div class="start-div">
-        <div id="start" class="start">
+        <a href="game.html"><div id="start" class="start">
           <h1>Start</h1>
-        </div>
+        </div></a>
       </div>
     </div>
     <div class="divider">
@@ -74,25 +45,5 @@
         similique placeat. Ratione iusto reiciendis cupiditate.
       </p>
     </div>
-
-    <script type="module">
-      import { startGame } from "./game.js";
-      document.getElementById('start').addEventListener('click', function() {
-        const fadeScreen = document.getElementById('fade-screen');
-        const fadeText = document.getElementById('fade-text');
-        fadeText.innerHTML = '<span>Level 1</span><h2>Chapter 1</h2>';
-        fadeScreen.style.display = 'flex';
-        fadeScreen.style.opacity = 1;
-    
-        setTimeout(() => {
-            document.getElementById('game-container').style.display = 'block';
-            startGame();
-            fadeScreen.style.opacity = 0;
-            setTimeout(() => {
-                fadeScreen.style.display = 'none'; 
-            }, 1000); 
-        }, 1000); 
-    });
-    </script>
   </body>
 </html>

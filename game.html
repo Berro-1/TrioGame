@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Drawing Canvas</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="./scripts/phaser.js"></script>
+    <link rel="stylesheet" href="styles/sketch.css" />
+</head>
+<body>
+    <div id="canvasWrapper1" class="canvas-wrapper">
+        <p>Player 1 - Draw Your Character</p>
+        <div id="canvasContainer1" class="canvas-container"></div>
+        <div class="tools">
+            <button onclick="changeColor('red')">Red</button>
+            <button onclick="changeColor('blue')">Blue</button>
+            <button onclick="changeColor('black')">Black</button>
+            <button onclick="undo()">Undo</button>
+            <button id="clearButton1">Clear</button>
+        </div>
+        <div class="button-container">
+            <button id="nextButton1">Next Player</button>
+        </div>
+    </div>
+    <div id="canvasWrapper2" class="canvas-wrapper" style="display: none;">
+        <p>Player 2 - Draw Your Character</p>
+        <div id="canvasContainer2" class="canvas-container"></div>
+        <div class="tools">
+            <button onclick="changeColor('red')">Red</button>
+            <button onclick="changeColor('blue')">Blue</button>
+            <button onclick="changeColor('black')">Black</button>
+            <button onclick="undo()">Undo</button>
+            <button id="clearButton2">Clear</button>
+        </div>
+        <div class="button-container">
+            <button id="nextButton2">Proceed to game</button>
+        </div>
+    </div>
+    <div id="fade-screen" class="fade-screen">
+        <div id="fade-text" class="fade-text"></div>
+    </div>
+    <div id="game-container" style="display: none;"></div>
+
+    <script src="scripts/sketch.js"></script>
+    <script type="module">
+        import { startGame } from "./game.js";
+
+        document.getElementById('nextButton2').addEventListener('click', function() {
+            console.log("Proceed to game button clicked");
+            const fadeScreen = document.getElementById('fade-screen');
+            const fadeText = document.getElementById('fade-text');
+            fadeText.innerHTML = '<span>Level 1</span><h2>Chapter 1</h2>';
+            fadeScreen.style.display = 'flex';
+            fadeScreen.style.opacity = 1;
+
+            setTimeout(() => {
+                console.log("Starting game...");
+                document.getElementById('game-container').style.display = 'block';
+                startGame();
+
+                // Remove the canvas containers
+                document.getElementById('canvasWrapper1').remove();
+                document.getElementById('canvasWrapper2').remove();
+
+                fadeScreen.style.opacity = 0;
+                setTimeout(() => {
+                    fadeScreen.style.display = 'none'; 
+                }, 1000); 
+            }, 1000); 
+        });
+    </script>
+</body>
+</html>

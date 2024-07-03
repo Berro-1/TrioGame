@@ -3,10 +3,6 @@ class Boot extends Phaser.Scene {
         super('Boot');
     }
 
-    preload() {
-        // this.load.image('preloaderBar', 'assets/preloader.png');
-    }
-
     create() {
         this.scene.start('Preloader');
     }
