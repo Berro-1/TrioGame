@@ -3,7 +3,8 @@ import Preloader from "./scripts/Preloader.js";
 import MainMenu from "./scripts/mainMenu.js";
 import Level1 from "./scripts/levels/level1.js";
 import Level2 from "./scripts/levels/Level2.js";
-import Level3 from "./scripts/levels/Level3.js";
+// import Level3 from "./scripts/levels/Level3.js";
+import Level5 from "./scripts/levels/level5.js";
 
 export function startGame() {
   const config = {
@@ -19,11 +20,10 @@ export function startGame() {
       default: "arcade",
       arcade: {
         gravity: { y: 250 },
-        debug: true,
       },
    
     },
-    scene: [Boot, Preloader, MainMenu, Level1, Level2, Level3],
+    scene: [Boot, Preloader, MainMenu, Level1, Level2, Level5],
   };
 
   new Phaser.Game(config);
