@@ -255,6 +255,9 @@ class Level2 extends Phaser.Scene {
         this.data.set(livesKey, this.data.get(livesKey) - 1);
         character.setPosition(startPosition, 500);
       } else {
+        const lose = document.createElement('audio');
+        lose.setAttribute('src', '../../assets/audio/lose.mp3');
+        lose.play();
         character.disableBody(true, true);
         this.data.set(livesKey, 0);
       }
@@ -263,7 +266,7 @@ class Level2 extends Phaser.Scene {
   
       this.updateScoreText();
   
-      if (this.data.get("lives1") === 0 && this.data.get("lives2") === 0) {
+      if (this.data.get('lives1') === 0 && this.data.get('lives2') === 0) {
         this.advanceToNextLevel();
       }
     }
@@ -275,18 +278,15 @@ class Level2 extends Phaser.Scene {
       } else {
         this.player2Coins += points;
       }
-      console.log(
-        `Coin collected by ${
-          character === this.player1 ? "Player 1" : "Player 2"
-        }, tile removed. Total coins: ${
-          character === this.player1 ? this.player1Coins : this.player2Coins
-        }`
-      );
+      console.log(`Coin collected by ${character === this.player1 ? 'Player 1' : 'Player 2'}, tile removed. Total coins: ${character === this.player1 ? this.player1Coins : this.player2Coins}`);
       this.layer.removeTileAt(tile.x, tile.y);
       this.updateScoreText();
     }
   
     collectCoin(character, tile) {
+      const coinSound = document.createElement('audio');
+      coinSound.setAttribute('src', '../../assets/audio/sonicRing.mp3');
+      coinSound.play();
       if (tile && (tile.index === 6 || tile.index === 136)) {
         this.getCoin(character, tile);
       }
@@ -294,22 +294,22 @@ class Level2 extends Phaser.Scene {
   
     updateScoreText() {
       this.scoreText1.setText([
-        "Player 1",
-        "Level: " + this.data.get("level1"),
-        "Lives: " + this.data.get("lives1"),
-        "Coins: " + this.player1Coins,
+        'Player 1',
+        'Level: ' + this.data.get('level1'),
+        'Lives: ' + this.data.get('lives1'),
+        'Coins: ' + this.player1Coins,
       ]);
       this.scoreText2.setText([
-        "Player 2",
-        "Level: " + this.data.get("level2"),
-        "Lives: " + this.data.get("lives2"),
-        "Coins: " + this.player2Coins,
+        'Player 2',
+        'Level: ' + this.data.get('level2'),
+        'Lives: ' + this.data.get('lives2'),
+        'Coins: ' + this.player2Coins,
       ]);
     }
   
     getRemainingCoinsCount() {
       let count = 0;
-      this.layer.forEachTile((tile) => {
+      this.layer.forEachTile(tile => {
         if (tile.index === 6 || tile.index === 136) {
           count++;
         }
