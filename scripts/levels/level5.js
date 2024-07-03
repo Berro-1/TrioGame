@@ -113,6 +113,42 @@ class Level5 extends Phaser.Scene {
         
     }
 
+    updateCharacter(character, controls, playerNum) {
+        if (controls.left.isDown) {
+            character.setDrag(0); 
+            character.setVelocityX(-200);
+            character.setFlipX(true); 
+        } else if (controls.right.isDown) {
+            character.setDrag(0);
+            character.setVelocityX(200); 
+            character.setFlipX(false); 
+        } else {
+        
+            if (character.body.blocked.down) { 
+                character.setDrag(100);
+                if (character.body.velocity.x === 0) {
+              
+                    character.setVelocityX(playerNum === 1 ? 10 : -10);
+                }
+            } else {
+                character.setDrag(100);
+                
+            }
+        }
+    
+        if (controls.up.isDown && character.body.blocked.down) {
+            character.setVelocityY(-625); 
+            this.tweens.add({
+                targets: character,
+                angle: { from: 0, to: -360 },
+                duration: 500,
+                ease: 'Linear',
+                onComplete: () => {
+                    character.angle = 0;
+                }
+            });
+        }
+    }
 
     handleHighBounce(player, tile) {
         if ([66, 67, 68].includes(tile.index)) {
