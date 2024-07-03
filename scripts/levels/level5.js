@@ -137,6 +137,9 @@ class Level5 extends Phaser.Scene {
         }
     
         if (controls.up.isDown && character.body.blocked.down) {
+            var jump = document.createElement('audio')
+            jump.setAttribute('src', '../../assets/audio/jump.mp3')
+            jump.play()
             character.setVelocityY(-625); 
             this.tweens.add({
                 targets: character,
@@ -171,6 +174,9 @@ class Level5 extends Phaser.Scene {
             this.data.set(livesKey, this.data.get(livesKey) - 1);
             character.setPosition(startPosition, 220);
         } else {
+            var lose = document.createElement('audio')
+            lose.setAttribute('src', '../../assets/audio/lose.mp3')
+            lose.play()
             character.disableBody(true, true);
             this.data.set(livesKey, 0);
         }
@@ -197,6 +203,9 @@ class Level5 extends Phaser.Scene {
     }
 
     collectCoin(character, tile) {
+        var coinSound = document.createElement('audio')
+        coinSound.setAttribute('src', '../../assets/audio/sonicRing.mp3')
+        coinSound.play()
         if (tile && (tile.index === 6 || tile.index === 136)) {
             this.getCoin(character, tile);
         }
