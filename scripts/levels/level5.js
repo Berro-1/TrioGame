@@ -6,17 +6,32 @@ class Level5 extends Phaser.Scene {
     preload() {
         this.loadData();
         this.load.image("tileset", "../../assets/Levels/tileset.png");
-        this.load.image("character", "../../assets/Images/kalkaboot.png");
+
+        let savedCharacter1 = localStorage.getItem("character1");
+        let savedCharacter2 = localStorage.getItem("character2");
+
+        if (savedCharacter1) {
+            this.load.image("player1", savedCharacter1);
+        } else {
+            this.load.image("player1", "../../assets/Images/kalkaboot.png");
+        }
+
+        if (savedCharacter2) {
+            this.load.image("player2", savedCharacter2);
+        } else {
+            this.load.image("player2", "../../assets/Images/kalkaboot.png");
+        }
+
         this.load.image("background", "../../assets/Images/chapter3-bg.png");
         this.load.image("penguin", "../../assets/Images/penguin.png");
-        this.load.tilemapCSV("map2", "./assets/Levels/map5.csv");
+        this.load.tilemapCSV("map5", "./assets/Levels/map5.csv");
     }
 
     create() {
         this.add.image(0, 0, 'background').setOrigin(0, 0).setDisplaySize(this.scale.width, this.scale.height);
 
         this.map = this.make.tilemap({
-            key: "map2",
+            key: "map5",
             tileWidth: 64,
             tileHeight: 64,
         });
@@ -24,8 +39,8 @@ class Level5 extends Phaser.Scene {
         this.layer = this.map.createLayer(0, this.tiles, 0, 0);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        this.player1 = this.createPlayer(40, 200);
-        this.player2 = this.createPlayer(this.map.widthInPixels - 40, 300);
+        this.player1 = this.createPlayer(40, 200, "player1");
+        this.player2 = this.createPlayer(this.map.widthInPixels - 40, 300, "player2");
         this.player1.setDepth(1);
         this.player2.setDepth(1);
 
@@ -70,9 +85,9 @@ class Level5 extends Phaser.Scene {
             }
         });
 
-        this.penguin = this.physics.add.sprite(this.scale.width-200, this.scale.height - 555, 'penguin');
+        this.penguin = this.physics.add.sprite(this.scale.width - 200, this.scale.height - 555, 'penguin');
         this.penguin.setOrigin(0.5, 0.5);
-        this.penguin.setScale(0.2)
+        this.penguin.setScale(0.2);
         this.penguin.body.allowGravity = false;
         this.penguin.body.immovable = true;
         this.penguin.body.collideWorldBounds = true;
@@ -83,14 +98,10 @@ class Level5 extends Phaser.Scene {
                 this.penguin.x = this.scale.width;
             }
         });
-
-       
-
-       
     }
 
-    createPlayer(x, y) {
-        let player = this.physics.add.sprite(x, y, "character")
+    createPlayer(x, y, spriteKey) {
+        let player = this.physics.add.sprite(x, y, spriteKey)
             .setOrigin(0.5, 0)
             .setCollideWorldBounds(true)
             .setBounce(0.2)
@@ -101,8 +112,6 @@ class Level5 extends Phaser.Scene {
         return player;
     }
 
-
-
     update() {
         this.updateCharacter(this.player1, this.wasd, 1);
         this.updateCharacter(this.player2, this.cursors, 2);
@@ -110,34 +119,30 @@ class Level5 extends Phaser.Scene {
         if (this.getRemainingCoinsCount() <= 0) {
             this.advanceToNextLevel();
         }
-        
     }
 
     updateCharacter(character, controls, playerNum) {
         if (controls.left.isDown) {
-            character.setDrag(0); 
+            character.setDrag(0);
             character.setVelocityX(-200);
-            character.setFlipX(true); 
+            character.setFlipX(true);
         } else if (controls.right.isDown) {
             character.setDrag(0);
-            character.setVelocityX(200); 
-            character.setFlipX(false); 
+            character.setVelocityX(200);
+            character.setFlipX(false);
         } else {
-        
-            if (character.body.blocked.down) { 
+            if (character.body.blocked.down) {
                 character.setDrag(100);
                 if (character.body.velocity.x === 0) {
-              
                     character.setVelocityX(playerNum === 1 ? 10 : -10);
                 }
             } else {
                 character.setDrag(100);
-                
             }
         }
-    
+
         if (controls.up.isDown && character.body.blocked.down) {
-            character.setVelocityY(-625); 
+            character.setVelocityY(-625);
             this.tweens.add({
                 targets: character,
                 angle: { from: 0, to: -360 },
@@ -248,20 +253,20 @@ class Level5 extends Phaser.Scene {
 
     advanceToNextLevel() {
         this.saveToLocalStorage();
-     const fadeScreen = document.getElementById('fade-screen');
-     const fadeText = document.getElementById('fade-text');
-     fadeText.innerHTML = 'Loading Level 3...';
-     fadeScreen.style.display = 'flex';
-     setTimeout(() => {
-         fadeScreen.style.opacity = 1;
-         setTimeout(() => {
-             this.scene.start('EndingScene');
-             fadeScreen.style.opacity = 0;
-             setTimeout(() => {
-                 fadeScreen.style.display = 'none';
-             }, 1000);
-         }, 1000);
-     }, 10);
+        const fadeScreen = document.getElementById('fade-screen');
+        const fadeText = document.getElementById('fade-text');
+        fadeText.innerHTML = '';
+        fadeScreen.style.display = 'flex';
+        setTimeout(() => {
+            fadeScreen.style.opacity = 1;
+            setTimeout(() => {
+                this.scene.start('EndingScene');
+                fadeScreen.style.opacity = 0;
+                setTimeout(() => {
+                    fadeScreen.style.display = 'none';
+                }, 1000);
+            }, 1000);
+        }, 10);
     }
 }
 

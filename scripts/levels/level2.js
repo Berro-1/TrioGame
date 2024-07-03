@@ -341,17 +341,19 @@ class Level2 extends Phaser.Scene {
       // Use HTML elements for transition
       const fadeScreen = document.getElementById("fade-screen");
       const fadeText = document.getElementById("fade-text");
-      fadeText.innerHTML = "Loading Level 3...";
-      fadeScreen.style.display = "flex";
+    
+      fadeText.innerHTML = '<span>Level 1</span><h2>Chapter 2</h2>';
+      fadeScreen.style.display = 'flex';
+      fadeScreen.style.opacity = 1;     
       setTimeout(() => {
-        fadeScreen.style.opacity = 1;
-        setTimeout(() => {
-          this.scene.start("Level3");
-          fadeScreen.style.opacity = 0;
+          fadeScreen.style.opacity = 1;
           setTimeout(() => {
-            fadeScreen.style.display = "none";
+              this.scene.start('Level3');
+              fadeScreen.style.opacity = 0;
+              setTimeout(() => {
+                  fadeScreen.style.display = 'none';
+              }, 1000);
           }, 1000);
-        }, 1000);
       }, 10);
     }
   }
