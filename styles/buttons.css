@@ -1,0 +1,77 @@
+.start-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+.lava{
+    margin: 0 20px 0 20px ;
+    text-align: start;
+    font-size: 60px;
+    color: rgb(255, 145, 0);
+    -webkit-text-stroke: 2px black;
+}
+
+.ice{
+    margin: 0 20px 0 20px ;
+    text-align: start;
+    font-size: 60px;
+    color: rgb(0, 247, 255);
+    -webkit-text-stroke: 2px black;
+}
+
+.start{
+    width: 500px;
+    height: 100px;
+
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    align-self: center;
+
+
+}
+
+.forest h1{
+    font-size: 80px;
+}
+
+.volcano h1{
+    font-size: 80px;
+    color: rgb(124, 46, 0);
+}
+
+
+.forest{
+    background-color: rgb(141, 92, 0);
+    border: 5px solid black;
+}
+
+.volcano{
+    background-color: rgb(54, 35, 107);
+    border: 5px solid rgb(241, 129, 0);
+}
+
+.forest:hover{
+
+    background-color: rgb(0, 231, 0);
+    -webkit-box-shadow:0 0 20px rgb(0, 231, 0); 
+    -moz-box-shadow: 0 0 20px rgb(0, 231, 0); 
+    box-shadow:0 0 20px rgb(0, 231, 0);
+}
+
+.volcano:hover{
+    
+    -webkit-box-shadow:0 0 50px red; 
+    -moz-box-shadow: 0 0 50px red; 
+    box-shadow:0 0 50px red;
+}
+
+.volcano:hover h1{
+    color: rgb(241, 129, 0);
+}
+
