@@ -4,7 +4,10 @@
     align-items: center;
     flex: 1 1 auto;
 }
-
+.start-div a{
+    text-decoration: none;
+    color: black;
+}
 .lava{
     margin: 0 20px 0 20px ;
     text-align: start;
