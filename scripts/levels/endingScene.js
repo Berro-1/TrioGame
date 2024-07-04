@@ -9,14 +9,20 @@ class EndingScene extends Phaser.Scene {
         this.load.image('kalkaboot', '../../assets/Images/kalkaboot.png');
         this.load.image('fireworks', '../../assets/Images/fireworks.png');
         this.load.audio('celebrateMusic', '../../assets/audio/wedding_march.mp3');
+ 
+ 
     }
 
     create() {
-            var music = this.game.registry.get('html5Audio');
-            if (music) {
-                music.pause();  
-                music.currentTime = 0;
-            }
+        var music1 = this.game.registry.get('themeMusic');
+        console.log(music1);
+        
+            music1.mute = true; 
+            music1.volume = 0.0;
+            console.log(music1.volume);
+        
+        
+ 
         this.add.image(960, 540, 'castle');
         this.add.image(1050, 700, 'princess');
 
@@ -71,7 +77,7 @@ class EndingScene extends Phaser.Scene {
     }
 
     createFireworks() {
-        const music = this.sound.add('celebrateMusic', { volume: 0.5 });
+        const music = this.sound.add('celebrateMusic', { volume: 1 });
         music.play();
 
         this.time.addEvent({

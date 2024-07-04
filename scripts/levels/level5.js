@@ -257,6 +257,12 @@ class Level5 extends Phaser.Scene {
         const fadeText = document.getElementById('fade-text');
         fadeText.innerHTML = '';
         fadeScreen.style.display = 'flex';
+        var music = this.game.registry.get('themeMusic');
+        if (music) {
+            music.pause();
+            music.currentTime = 0;
+        }
+        
         setTimeout(() => {
             fadeScreen.style.opacity = 1;
             setTimeout(() => {

@@ -8,6 +8,7 @@ import Level4 from "./scripts/levels/level4.js";
 import Level5 from "./scripts/levels/level5.js";
 import EndingScene from "./scripts/levels/endingScene.js";
 
+
 export function startGame() {
   const config = {
     type: Phaser.AUTO,

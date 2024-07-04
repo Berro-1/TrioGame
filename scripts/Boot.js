@@ -4,11 +4,18 @@ class Boot extends Phaser.Scene {
     }
 
     create() {
-        var theme = document.createElement('audio')
-        theme.setAttribute('src', '../../assets/audio/theme.mp3')
-        this.game.registry.set('html5Audio', theme);
+        var theme = document.createElement('audio');
+        theme.setAttribute('src', '../../assets/audio/theme.mp3');
 
-        theme.play()
+        // Set the volume
+        theme.volume = 0.5; // Set volume to 50%
+
+        // Start playing the audio
+        theme.play();
+
+        // Store the audio element in the Phaser registry for global access
+        this.game.registry.set('themeMusic', theme);
+
         this.scene.start('Preloader');
     }
 }
