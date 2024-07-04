@@ -6,35 +6,25 @@ class EndingScene extends Phaser.Scene {
     preload() {
         this.load.image('castle', '../../assets/Images/aisle.png');
         this.load.image('princess', '../../assets/Images/princess.png');
-        this.load.image('kalkaboot', '../../assets/Images/kalkaboot.png'); 
         this.load.image('kalkaboot', '../../assets/Images/kalkaboot.png');
         this.load.image('fireworks', '../../assets/Images/fireworks.png');
         this.load.audio('celebrateMusic', '../../assets/audio/wedding_march.mp3');
     }
 
     create() {
-            // Stop the music from the Boot scene
             var music = this.game.registry.get('html5Audio');
             if (music) {
-                music.pause();  // Stop the audio
-                music.currentTime = 0;  // Reset the playback position
+                music.pause();  
+                music.currentTime = 0;
             }
-        // Setting the background
         this.add.image(960, 540, 'castle');
         this.add.image(1050, 700, 'princess');
 
         const gameData = this.loadData();
         const { winnerName, winnerImageKey } = this.determineWinner(gameData);
 
-        this.add.image(960, 540, 'castle'); 
-        const princess = this.add.image(1050, 700, 'princess');
-        // Load and display the winner's image
         this.loadWinnerImage(winnerImageKey);
 
-        const winnerImageKey = localStorage.getItem('winnerImage') || 'kalkaboot';
-        const winner = this.add.image(800, 700, winnerImageKey).setScale(1.3);  
-
-        // Celebrations and UI
         this.time.delayedCall(2000, () => {
             this.add.text(640, 200, 'Congratulations!', { fontSize: '48px', fill: '#000' });
             this.add.text(640, 250, `${winnerName} marries the princess!`, { fontSize: '36px', fill: '#000' });
@@ -53,7 +43,7 @@ class EndingScene extends Phaser.Scene {
 
     determineWinner(gameData) {
         let winnerName = 'Draw';
-        let winnerImageKey = 'kalkaboot';  // default image
+        let winnerImageKey = 'kalkaboot';  
 
         if (gameData.player1Coins > gameData.player2Coins) {
             winnerName = 'Player 1';
@@ -76,7 +66,6 @@ class EndingScene extends Phaser.Scene {
             };
             image.src = imageBase64;
         } else {
-            return 'Draw';  
             this.add.image(800, 700, 'kalkaboot').setScale(1.3);
         }
     }
@@ -107,8 +96,6 @@ class EndingScene extends Phaser.Scene {
     createRestartButton() {
         const buttonWidth = 200;
         const buttonHeight = 60;
-        const buttonX = 960 - buttonWidth / 2; 
-        const buttonY = 850; 
         const buttonX = 960 - buttonWidth / 2;
         const buttonY = 850;
 
@@ -116,40 +103,8 @@ class EndingScene extends Phaser.Scene {
         buttonBackground.fillRoundedRect(buttonX, buttonY, buttonWidth, buttonHeight, 20);
 
         const restartButton = this.add.text(960, 881, 'Restart', {
-            fontSize: '32px',
-            fill: '#FFFFFF', 
-            fontFamily: 'Arial', 
-            fontStyle: 'bold'
-        })
-        .setOrigin(0.5)
-        .setInteractive()
-        .on('pointerdown', () => {
-            window.location.href = '../../pages/finalPage.html';
-        });
             fontSize: '32px', fill: '#FFFFFF', fontFamily: 'Arial', fontStyle: 'bold'
         }).setOrigin(0.5).setInteractive().on('pointerdown', () => window.location.href = 'restart.html');
-
-        restartButton.on('pointerover', () => {
-            restartButton.setStyle({ fill: '#fff' });
-            buttonBackground.fillStyle(0x00E700, 1);
-            buttonBackground.fillRoundedRect(buttonX, buttonY, buttonWidth, buttonHeight, 20);
-        });
-
-        restartButton.on('pointerout', () => {
-            restartButton.setStyle({ fill: '#FFFFFF' }); 
-            buttonBackground.fillStyle(0x008000, 1);
-            buttonBackground.fillRoundedRect(buttonX, buttonY, buttonWidth, buttonHeight, 20);
-        });
-
-        restartButton.on('pointerdown', () => {
-            restartButton.setStyle({ fill: '#0f0' });
-            buttonBackground.fillStyle(0x555555, 1); 
-            buttonBackground.fillRoundedRect(buttonX, buttonY, buttonWidth, buttonHeight, 20);
-        });
-    }
-}
-
-   
 
         restartButton.on('pointerover', () => restartButton.setStyle({ fill: '#fff' }));
         restartButton.on('pointerout', () => restartButton.setStyle({ fill: '#FFFFFF' }));
