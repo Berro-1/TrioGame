@@ -1,7 +1,6 @@
-class Level3 extends Phaser.Scene {
+class Level4 extends Phaser.Scene {
     constructor() {
-        super({ key: "Level3" });
-
+        super({ key: "Level4" });
     }
 
     preload() {
@@ -24,14 +23,14 @@ class Level3 extends Phaser.Scene {
         }
 
         this.load.image("background2", "../../assets/Images/chapter2-bg.jpg");
-        this.load.tilemapCSV("map3", "./assets/Levels/map3.csv");
+        this.load.tilemapCSV("map4", "./assets/Levels/map4.csv");
     }
 
     create() {
         this.add.image(0, 0, 'background2').setOrigin(0, 0).setDisplaySize(this.scale.width, this.scale.height);
 
         this.map = this.make.tilemap({
-            key: "map3",
+            key: "map4",
             tileWidth: 64,
             tileHeight: 64,
         });
@@ -39,7 +38,7 @@ class Level3 extends Phaser.Scene {
         this.layer = this.map.createLayer(0, this.tiles, 0, 0);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
-        this.player1 = this.createPlayer(40, 200, "player1");
+        this.player1 = this.createPlayer(40, 100, "player1");
         this.player2 = this.createPlayer(this.map.widthInPixels - 40, 100, "player2");
 
         this.layer.setCollisionByExclusion([-1, 109]);
@@ -58,7 +57,6 @@ class Level3 extends Phaser.Scene {
         this.data.set('level1', 1);
         this.data.set('lives2', 3);
         this.data.set('level2', 1);
-        this.loadData()
 
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.cameras.main.startFollow(this.player1, true, 0.5, 0.5, 0, 0);
@@ -121,27 +119,26 @@ class Level3 extends Phaser.Scene {
             });
         }
     }
-
-     advanceToNextLevel() {
-      this.saveToLocalStorage();
-      // Use HTML elements for transition
-      const fadeScreen = document.getElementById("fade-screen");
-      const fadeText = document.getElementById("fade-text");
-    
-      fadeText.innerHTML = '<span>Level 2</span><h2>Chapter 2</h2>';
-      fadeScreen.style.display = 'flex';
-      fadeScreen.style.opacity = 1;     
-      setTimeout(() => {
-          fadeScreen.style.opacity = 1;
-          setTimeout(() => {
-              this.scene.start('Level4');
-              fadeScreen.style.opacity = 0;
-              setTimeout(() => {
-                  fadeScreen.style.display = 'none';
-              }, 1000);
-          }, 1000);
-      }, 10);
-    }
+    advanceToNextLevel() {
+        this.saveToLocalStorage();
+        // Use HTML elements for transition
+        const fadeScreen = document.getElementById("fade-screen");
+        const fadeText = document.getElementById("fade-text");
+      
+        fadeText.innerHTML = '<span>Final Level</span><h2>Chapter 3</h2>';
+        fadeScreen.style.display = 'flex';
+        fadeScreen.style.opacity = 1;     
+        setTimeout(() => {
+            fadeScreen.style.opacity = 1;
+            setTimeout(() => {
+                this.scene.start('Level5');
+                fadeScreen.style.opacity = 0;
+                setTimeout(() => {
+                    fadeScreen.style.display = 'none';
+                }, 1000);
+            }, 1000);
+        }, 10);
+      }
 
     getRemainingCoinsCount() {
         let count = 0;
@@ -164,26 +161,19 @@ class Level3 extends Phaser.Scene {
         player.body.setSize(90, 120);
         return player;
     }
- 
-    saveToLocalStorage() {
-        const gameData = {
-          player1Coins: this.player1Coins,
-          player2Coins: this.player2Coins,
-        };
-        localStorage.setItem("gameData", JSON.stringify(gameData));
-      }
-    
-      loadData() {
-        const savedData = localStorage.getItem("gameData");
+
+    loadData() {
+        const savedData = localStorage.getItem('gameData');
         if (savedData) {
-          const gameData = JSON.parse(savedData);
-          this.player1Coins = gameData.player1Coins;
-          this.player2Coins = gameData.player2Coins;
+            const gameData = JSON.parse(savedData);
+            this.player1Coins = gameData.player1Coins;
+            this.player2Coins = gameData.player2Coins;
         } else {
-          console.log("No saved data found, starting with default values.");
+            this.player1Coins = 0;
+            this.player2Coins = 0;
+            console.log('No saved data found, starting with default values.');
         }
-      }
-    
+    }
 
     updateScoreText() {
         this.scoreText1.setText([
@@ -252,7 +242,13 @@ class Level3 extends Phaser.Scene {
         }
     }
 
- 
+    saveToLocalStorage() {
+        const gameData = {
+            player1Coins: this.player1Coins,
+            player2Coins: this.player2Coins,
+        };
+        localStorage.setItem('gameData', JSON.stringify(gameData));
+    }
 }
 
-export default Level3;
+export default Level4;
