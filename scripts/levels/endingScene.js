@@ -110,7 +110,7 @@ class EndingScene extends Phaser.Scene {
 
         const restartButton = this.add.text(960, 881, 'Restart', {
             fontSize: '32px', fill: '#FFFFFF', fontFamily: 'Arial', fontStyle: 'bold'
-        }).setOrigin(0.5).setInteractive().on('pointerdown', () => window.location.href = 'restart.html');
+        }).setOrigin(0.5).setInteractive().on('pointerdown', () => window.location.href = '../../pages/finalPage.html');
 
         restartButton.on('pointerover', () => restartButton.setStyle({ fill: '#fff' }));
         restartButton.on('pointerout', () => restartButton.setStyle({ fill: '#FFFFFF' }));
