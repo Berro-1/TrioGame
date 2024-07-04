@@ -6,23 +6,26 @@ class EndingScene extends Phaser.Scene {
     preload() {
         this.load.image('castle', '../../assets/Images/aisle.png');
         this.load.image('princess', '../../assets/Images/princess.png');
-        this.load.image('kalkaboot', '../../assets/Images/kalkaboot.png'); // Default image
+        this.load.image('kalkaboot', '../../assets/Images/kalkaboot.png'); 
         this.load.image('fireworks', '../../assets/Images/fireworks.png');
         this.load.audio('celebrateMusic', '../../assets/audio/wedding_march.mp3');
     }
 
     create() {
-        // Load game data and determine the winner
+            // Stop the music from the Boot scene
+            var music = this.game.registry.get('html5Audio');
+            if (music) {
+                music.pause();  // Stop the audio
+                music.currentTime = 0;  // Reset the playback position
+            }
         const gameData = this.loadData();
         const winnerName = this.determineWinner(gameData);
 
-        // Set the background image
         this.add.image(960, 540, 'castle'); 
         const princess = this.add.image(1050, 700, 'princess');
 
-        // Load winner image from local storage or default
         const winnerImageKey = localStorage.getItem('winnerImage') || 'kalkaboot';
-        const winner = this.add.image(800, 700, winnerImageKey).setScale(1.3);  // Adjust scale accordingly
+        const winner = this.add.image(800, 700, winnerImageKey).setScale(1.3);  
 
         this.time.delayedCall(2000, () => {
             this.add.text(640, 200, 'Congratulations!', { fontSize: '48px', fill: '#000' });
@@ -46,7 +49,7 @@ class EndingScene extends Phaser.Scene {
         } else if (gameData.player2Coins > gameData.player1Coins) {
             return 'Player 2';
         } else {
-            return 'Draw';  // Handle a draw situation
+            return 'Draw';  
         }
     }
 
@@ -79,45 +82,40 @@ class EndingScene extends Phaser.Scene {
     
     }
     createRestartButton() {
-        // Define button dimensions
         const buttonWidth = 200;
         const buttonHeight = 60;
-        const buttonX = 960 - buttonWidth / 2; // Centered on a 1920 width screen
-        const buttonY = 850; // Adjust the Y position as needed
-
-        // Create a graphics object for the button background
+        const buttonX = 960 - buttonWidth / 2; 
+        const buttonY = 850; 
         const buttonBackground = this.add.graphics({ fillStyle: { color: 0x008000 } });
         buttonBackground.fillRoundedRect(buttonX, buttonY, buttonWidth, buttonHeight, 20);
 
-        // Create the text for the button
         const restartButton = this.add.text(960, 881, 'Restart', {
             fontSize: '32px',
-            fill: '#FFFFFF', // White text color
-            fontFamily: 'Arial', // Specify the font family
-            fontStyle: 'bold' // Bold text
+            fill: '#FFFFFF', 
+            fontFamily: 'Arial', 
+            fontStyle: 'bold'
         })
         .setOrigin(0.5)
         .setInteractive()
         .on('pointerdown', () => {
-            window.location.href = 'restart.html';
+            window.location.href = '../../pages/finalPage.html';
         });
 
-        // Hover and interaction styles
         restartButton.on('pointerover', () => {
-            restartButton.setStyle({ fill: '#fff' }); // Yellow text on hover
-            buttonBackground.fillStyle(0x00E700, 1); // Lighter green background on hover
+            restartButton.setStyle({ fill: '#fff' });
+            buttonBackground.fillStyle(0x00E700, 1);
             buttonBackground.fillRoundedRect(buttonX, buttonY, buttonWidth, buttonHeight, 20);
         });
 
         restartButton.on('pointerout', () => {
-            restartButton.setStyle({ fill: '#FFFFFF' }); // White text normally
-            buttonBackground.fillStyle(0x008000, 1); // Dark green background normally
+            restartButton.setStyle({ fill: '#FFFFFF' }); 
+            buttonBackground.fillStyle(0x008000, 1);
             buttonBackground.fillRoundedRect(buttonX, buttonY, buttonWidth, buttonHeight, 20);
         });
 
         restartButton.on('pointerdown', () => {
-            restartButton.setStyle({ fill: '#0f0' }); // Bright green text on click
-            buttonBackground.fillStyle(0x555555, 1); // Dark gray background on click
+            restartButton.setStyle({ fill: '#0f0' });
+            buttonBackground.fillStyle(0x555555, 1); 
             buttonBackground.fillRoundedRect(buttonX, buttonY, buttonWidth, buttonHeight, 20);
         });
     }

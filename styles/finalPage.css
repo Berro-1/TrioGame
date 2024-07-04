@@ -1,0 +1,100 @@
+body {
+    background-image: url('../assets/Images/bg4.jpg');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.score-container {
+    display: flex;
+    width: 60%;
+      height: 60vh; 
+    justify-content: space-around;
+    align-items: center;
+    font-size: 2vw; 
+    color: #fff;
+}
+
+.player-score {
+    flex: 1; 
+    margin: 0 2%; 
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 3px solid black;
+    background-size: cover; 
+}
+
+.player1 {
+    background-image: url('../assets/Images/pkayer1-backgrnd.jpg');
+}
+
+.player2 {
+    background-image: url('../assets/Images/player2-backgrnd.jpg');
+}
+
+.btns-container {
+    width: 30%; 
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 2vh; }
+
+button {
+    background-color: #F2FF5B;
+    height: 45%; 
+    border-radius: 10px;
+    font-size: 1.5vw;
+    border: 3px solid black;
+    transition: all 0.3s;
+}
+
+#play-again:hover, #main-menu:hover {
+    cursor: pointer;
+    background-color: #e4f807;
+    transform: scale(1.05)
+}
+
+
+.score {
+    font-size: 4vw; 
+    color: #FF6347; 
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+    .score-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .player-score {
+        width: 80%;
+        margin-bottom: 2vh;
+    }
+
+    .btns-container {
+        width: 80%;
+    }
+
+    button {
+        font-size: 3vw; 
+    }
+
+    .score {
+        font-size: 6vw;
+    }
+}
