@@ -22,13 +22,13 @@ class Level5 extends Phaser.Scene {
             this.load.image("player2", "../../assets/Images/kalkaboot.png");
         }
 
-        this.load.image("background", "../../assets/Images/chapter3-bg.png");
+        this.load.image("background5", "../../assets/Images/chapter3-bg.png"); // Use a unique key for Level5 background
         this.load.image("penguin", "../../assets/Images/penguin.png");
         this.load.tilemapCSV("map5", "./assets/Levels/map5.csv");
     }
 
     create() {
-        this.add.image(0, 0, 'background').setOrigin(0, 0).setDisplaySize(this.scale.width, this.scale.height);
+        this.add.image(0, 0, 'background5').setOrigin(0, 0).setDisplaySize(this.scale.width, this.scale.height); // Use the unique key for the new background
 
         this.map = this.make.tilemap({
             key: "map5",
