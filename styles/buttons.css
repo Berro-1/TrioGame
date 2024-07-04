@@ -1,8 +1,8 @@
 .start-div{
-    display: flex;
-    justify-content: center;
+    /* display: flex; */
+    /* justify-content: center;
     align-items: center;
-    flex: 1 1 auto;
+    flex: 1 1 auto; */
 }
 .start-div a{
     text-decoration: none;

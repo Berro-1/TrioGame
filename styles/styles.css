@@ -39,6 +39,7 @@
     
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -51,7 +52,7 @@
 }
 
 .second{
-    background-image: url("../assets/Images/volcano.png");
+    background-image: url("../assets/Images/volcano.jpeg");
     background-position: bottom;
 }
 
@@ -75,9 +76,11 @@
 
 .logo{
     margin-right: 20px;
-    margin-top: 80px;
-    display: flex;
+    justify-content: center;
+    align-items: center;
+        display: flex;
     flex-direction: column;
+    gap: 0px;
 }
 
 .logo img{
